@@ -51,7 +51,7 @@ that aren't allowed to contribute, the site admins, to see "Hey I could have won
 then re-roll. How do we do that?
 
 ```bash
-./reroll.py `contenders-<date>.json`
+./reroll.py contests/contenders-<date>.json
 ```
 
 ### Query By Date
