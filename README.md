@@ -43,6 +43,8 @@ token, you can't make requests as frequently, and will need to increase that.
 
 ## How could we improve it?
 
+### Exclude Users
+
 We could easily add a list of users to disclude, but instead we can just use
 the list of contenders to select again (this is a weird and twisted way for those
 that aren't allowed to contribute, the site admins, to see "Hey I could have won!" and 
@@ -51,3 +53,9 @@ then re-roll. How do we do that?
 ```bash
 ./reroll.py `contenders-<date>.json`
 ```
+
+### Query By Date
+
+We are currently exporting all posts to check the date for. Very likely we can
+use a query parameter for the discourse API to filter instead. I didn't do this
+because I was nervous about how the timestamp would be parsed and wanted to do it myself.
