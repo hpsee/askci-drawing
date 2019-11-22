@@ -1,0 +1,82 @@
+[
+    {
+        "username": "guilfoos",
+        "content": "<p>I apologize for linking to external content - we\u2019re evaluating how to best use Ask.CI in our documentation ecosystem - but I thought our HOWTO on using Docker/Singularity at the Ohio Supercomputer Center might be a nice supplement to <a class=\"mention\" href=\"/u/vsoch\">@vsoch</a>\u2019s answer.</p>\n<p><a href=\"https://www.osc.edu/resources/getting_started/howto/howto_use_docker_and_singularity_containers_at_osc\" class=\"onebox\" target=\"_blank\" rel=\"nofollow noopener\">https://www.osc.edu/resources/getting_started/howto/howto_use_docker_and_singularity_containers_at_osc</a></p>",
+        "url": "https://ask.cyberinfrastructure.org/t/how-can-i-move-a-docker-container-to-singularity/1125/4"
+    },
+    {
+        "username": "sajid",
+        "content": "<p>I\u2019d also add this for reference : <a href=\"https://betterscientificsoftware.github.io/python-for-hpc/python-for-hpc/\" rel=\"nofollow noopener\">https://betterscientificsoftware.github.io/python-for-hpc/python-for-hpc/</a></p>",
+        "url": "https://ask.cyberinfrastructure.org/t/how-do-i-get-started-with-python-on-hpc/871/6"
+    },
+    {
+        "username": "Mike_Henry",
+        "content": "<p>How can I access a jupyter notebook that I start on an interactive job? Sometimes I want to prototype some analysis using a notebook before I translate it into a python script, but I need HPC resources (like a fancy GPU for example) to do the prototyping.</p>",
+        "url": "https://ask.cyberinfrastructure.org/t/how-can-i-run-a-jupyter-notebook-on-a-node/1146/1"
+    },
+    {
+        "username": "Mike_Henry",
+        "content": "<p>This can be accomplished with some ssh tunneling. First, start an interactive job asking for the resources you need then load the necessary modules for your code. Then start a notebook like this <code>jupyter notebook --no-browser --port=5556</code>. This will start a notebook without launching a browser and use port <code>5556</code>. Then open another terminal on your local computer and run this command <code>ssh -L 9999:localhost:9999 username@hpc_cluster ssh -L 9999:localhost:5556 -N username@hpc_node</code>. This will open a tunnel from your local computer to the node, mapping the nodes port <code>5556</code> to your <code>9999</code> port. Then on your local computer, open your favorite web browser and got to <code>localhost:9999</code> and you should see your notebook!</p>\n<p>This method isn\u2019t bullet proof since if these ports are in use, it won\u2019t work and you will have to switch to an unused port. This method also won\u2019t work if the cluster won\u2019t let you ssh onto a node directly (I\u2019ve found most places let you as long as you have a job running on the node).</p>",
+        "url": "https://ask.cyberinfrastructure.org/t/how-can-i-run-a-jupyter-notebook-on-a-node/1146/2"
+    },
+    {
+        "username": "guilfoos",
+        "content": "<p>Mike, my advice for something like this is to encourage your site admins to install OpenOnDemand - which has built-in support for running Jupyter notebooks on compute nodes, without having to deal with setting up manual tunnels.</p>\n<p>However, the tunneling method does work. It\u2019s what we used to recommend at our site for connecting to desktops before we created OOD.</p>",
+        "url": "https://ask.cyberinfrastructure.org/t/how-can-i-run-a-jupyter-notebook-on-a-node/1146/3"
+    },
+    {
+        "username": "guilfoos",
+        "content": "<p>We\u2019re not using SLURM, but we have used ReFrame to write a set of scheduler tests to basically confirm that our scheduler acts the way we expect. For example, we submit test jobs to every combination of queue and resource type we support, test that jobs that we expect to be unschedulable are rejected, etc.</p>\n<p>We are considering switching to SLURM in 2020, and would likely re-write these tests to test our SLURM configuration.</p>\n<p>We currently run these when we come out of a downtime to confirm that nothing changed unexpectedly.</p>",
+        "url": "https://ask.cyberinfrastructure.org/t/stress-testing-on-slurm/1127/5"
+    },
+    {
+        "username": "shmget",
+        "content": "<p>I realize this is an old topic, but a follow-on question I\u2019d have to this is:</p>\n<p>If I have a small problem that can fit on one node, is it generally better to use something like OpenMP, vs. using MPI?  Would OpenMP have less overhead than MPI? Once you go beyond one node, my understanding is that you must use MPI.</p>",
+        "url": "https://ask.cyberinfrastructure.org/t/under-what-conditions-should-i-use-mpi-to-run-jobs-in-parallel/88/3"
+    },
+    {
+        "username": "iki",
+        "content": "<p>I wouldn\u2019t say it\u2019s <em>better</em> exactly,  but it is often <em>easier</em>. OpenMP is much easier to add to an  existing code \u2013 adding MPI to an existing code generally requires much more substantial redesign.</p>\n<p>On one node, most MPI implementations should use shared-memory to \u201ctransmit\u201d the messages, but there will be overhead for preparing and managing the messages.</p>\n<p>MPI is one common option for going beyond one node, but there are others.</p>",
+        "url": "https://ask.cyberinfrastructure.org/t/under-what-conditions-should-i-use-mpi-to-run-jobs-in-parallel/88/4"
+    },
+    {
+        "username": "guilfoos",
+        "content": "<p>I\u2019d concur - OpenMP is much easier due to the memory model than MPI, but it can\u2019t span nodes.</p>\n<p>It\u2019s also worth considering - for the more advanced users - things like memory bandwidth or cache requirements. You may not want to use all the cores on a node, and instead use some cores on multiple nodes to avoid saturating some aspect of the node and improve net performance.</p>",
+        "url": "https://ask.cyberinfrastructure.org/t/under-what-conditions-should-i-use-mpi-to-run-jobs-in-parallel/88/5"
+    },
+    {
+        "username": "JoshD",
+        "content": "<h1>Federated Identity Authorization and Management in Large Cyberinfrastructure Facilities</h1>\n<p>As part of a new Community of Practice feature, we will be posting a brief overview of various technologies designed to help large CI facilities manage various aspects of their operations.  For the next few months we will be focusing on <strong>Identity Management</strong>.  The first such platform we will be looking at is CILogin and its management platform, COManage.</p>\n<h2>CILogin and COManage</h2>\n<h3>CILogin</h3>\n<p><a href=\"https://cilogin.org\" rel=\"nofollow noopener\">CILogin</a> is an integrated open source and idenity access management platform designed for research collaboration.  Together with <a href=\"https://spaces.at.internet2.edu/display/COmanage/Home\" rel=\"nofollow noopener\">COManage</a> it enables researchers to offload IAM to a third party.  Both CILogin and COManage are a part of Internet2\u2019s <a href=\"https://www.incommon.org/about/\" rel=\"nofollow noopener\">InCommon</a> Initiative, partnering with InCommon and <a href=\"https://www.google.com/url?q=https%3A%2F%2Fwww.shibboleth.net%2F&amp;sa=D&amp;sntz=1&amp;usg=AFQjCNHUVFmq2Kck_qY0j2ezF87hb8xTEA\" rel=\"nofollow noopener\">Shibboleth</a> to provide federated identity management at scale for higher education and research.</p>\n<p>CILogon leverages both the federated identity management of Incommon and Shibboleth, with collaborative organization management to allow collaborative organizations to share resources across institutions using single sign on (SSO).  CILogon currently supports over 2500 identity providers, including campus providers, GitHub, Google and ORCID.</p>\n<p>CILogon is built using the <a href=\"https://aarc-project.eu/wp-content/uploads/2019/04/Blueprint-development-AARC-BPA-2019-v0.2-abingdon-2000px.jpg\" rel=\"nofollow noopener\">ARCC Blueprint Architecture</a> which separates services into five component layers by function.</p>\n<ol>\n<li>User Identity Services - these are services which provide electronic identification to users (e.g. X.509, OAuth2 (OIDC), eGov, ORCID, Globus, etc.)</li>\n<li>Community Attribute Services - an additional layer for managing and sharing attributes attached to electronic identities, in addition to what is provided by the layer 1 services. (e.g. Reputation services, AUP, and other attribute authorities such as Oauth2, SAML, etc.)</li>\n<li>Access Protocol Translation Services - defines the administrative, policy, and technical boundaries between internal and external services and providers/resources. (e.g. discovery services, tokens, X.509 certificates, JSON Web Tokens, etc.)</li>\n<li>Authorization Services - community maintained repositories for policies.</li>\n<li>End-Services - where the resources and other external services interact with the other four layers.</li>\n</ol>\n<p>CILogon is operated by <a href=\"https://www.cilogon.org/xsede\" rel=\"nofollow noopener\">XSEDE</a> and is funded via a non-profit subscription model, to learn more please visit <a href=\"https://www.cilogon.org/subscribe\" rel=\"nofollow noopener\">https://www.cilogon.org/subscribe</a>, and <a href=\"https://www.cilogon.org/faq\" rel=\"nofollow noopener\">https://www.cilogon.org/faq</a>.</p>\n<h3>COManage</h3>\n<p>COManage combines an identity management registry and a suite of API/interface tools for connecting with the CAS resources maintained in the registry to allow participating organizations to share resources with other organizations or individuals using Virtual Organizations (VOs).</p>\n<p>Virtual Organizations are collections of defined organizations or individuals collaborating on specific resources with authorization requirements.  Once a collaborative organization(CO) or VO has been defined, they may create an enrollment process to gather identity attributes for the registry to grant access to shared resources among the members.  This is done using their library of API tools or other ID tokens, such as X.509 or JWT. COManage also allows COs/VOs to store attribute information in an LDAP directory.</p>\n<p>COManage can collect audit information and usage data, as well as provide service notifications to their COs/VOs.  COManage also allows for the revocation and expiration of federated identity tokens and attributes.  COManage provides information to its members via a dashboard, and maintains a <a href=\"https://spaces.at.internet2.edu/display/COmanage/COmanage+Technical+Manual\" rel=\"nofollow noopener\">community wiki</a> for the development and support of their interfaces.  For a list of example use cases of COManage and CILogon see the <a href=\"https://spaces.at.internet2.edu/display/COmanage/Use+Case+Library\" rel=\"nofollow noopener\">Use Case Library</a> on the COManage Wiki.</p>\n<h2>Discussion</h2>\n<p>Please reply and let us know what you are using for identity management on your platforms.  What are some of the problems you are facing or have solved in IAM in the past year?</p>\n<p>Please feel free to share and ask questions, and check back on Dec 4th for our next post on Oauth2 and OIDC!</p>",
+        "url": "https://ask.cyberinfrastructure.org/t/id-management-discussion-1-cilogon-and-comanage/1141/1"
+    },
+    {
+        "username": "mirestrepo",
+        "content": "<p>CIS wants to know how the Brown students, faculty and staff use or might use 3D, virtual reality and visualization technology. We are <a href=\"http://brown.edu/go/vizsurvey\">conducting a short 3-minutes survey</a> in order to assess the current needs and specific requests. Help us plan the future of 3D on Brown\u2019s campus!</p>",
+        "url": "https://ask.cyberinfrastructure.org/t/how-might-you-use-vr-and-3d-visualization/1137/1"
+    },
+    {
+        "username": "shmget",
+        "content": "<p>You can add me: <a href=\"https://github.com/rthoelen\" rel=\"nofollow noopener\">https://github.com/rthoelen</a></p>",
+        "url": "https://ask.cyberinfrastructure.org/t/hey-askci-join-the-github-community/947/3"
+    },
+    {
+        "username": "vsoch",
+        "content": "<p>Done! Do you have any ideas for projects or other? What kinds of tools would you like to see developed?</p>",
+        "url": "https://ask.cyberinfrastructure.org/t/hey-askci-join-the-github-community/947/4"
+    },
+    {
+        "username": "vsoch",
+        "content": "<aside class=\"onebox twitterstatus\">\n  <header class=\"source\">\n      <a href=\"https://twitter.com/askcyberinfra/status/1197910581677719552\" target=\"_blank\">twitter.com</a>\n  </header>\n  <article class=\"onebox-body\">\n    <img src=\"https://ask.cyberinfrastructure.org/uploads/default/original/1X/cc4f882325cd1d7f3532bd1ab87cf9a373de56ab.jpeg\" class=\"thumbnail onebox-avatar\" width=\"400\" height=\"400\">\n\n<h4><a href=\"https://twitter.com/askcyberinfra/status/1197910581677719552\" target=\"_blank\">Ask.CyberInfrastructure.org (askcyberinfra)</a></h4>\n\n<div class=\"tweet\"> Have you ever wondered how software might add commas to numbers, or some other kind of formatting? This is called font shaping, and it's something we interact with every day that you should be aware of. <a target=\"_blank\" href=\"https://blog.janestreet.com/commas-in-big-numbers-everywhere/\">blog.janestreet.com/commas-in-big-\u2026</a> You can create feature files too! <a href=\"https://twitter.com/search?q=%23FridayFactoid\" target=\"_blank\">#FridayFactoid</a> <a href=\"https://t.co/NiAe8sLdI9\" target=\"_blank\">https://t.co/NiAe8sLdI9</a><div class=\"aspect-image-full-size\" style=\"--aspect-ratio:690/320;\"><img class=\"tweet-image\" src=\"https://ask.cyberinfrastructure.org/uploads/default/original/1X/62ab5618e6aecbf46454f9a538702b925c0d026b.png\"></div>\n</div>\n\n<div class=\"date\">\n  <a href=\"https://twitter.com/askcyberinfra/status/1197910581677719552\" target=\"_blank\">4:11 PM - 22 Nov 2019</a>\n</div>\n\n  </article>\n  <div class=\"onebox-metadata\">\n    \n    \n  </div>\n  <div style=\"clear: both\"></div>\n</aside>\n",
+        "url": "https://ask.cyberinfrastructure.org/t/font-shaping-you-can-do-it-too/1149/1"
+    },
+    {
+        "username": "jma",
+        "content": "<p>(Replace this first paragraph with a brief description of your new category. This guidance will appear in the category selection area, so try to keep it below 200 characters.)</p>\n<p>Use the following paragraphs for a longer description, or to establish category guidelines or rules:</p>\n<ul>\n<li>\n<p>Why should people use this category? What is it for?</p>\n</li>\n<li>\n<p>How exactly is this different than the other categories we already have?</p>\n</li>\n<li>\n<p>What should topics in this category generally contain?</p>\n</li>\n<li>\n<p>Do we need this category? Can we merge with another category, or subcategory?</p>\n</li>\n</ul>",
+        "url": "https://ask.cyberinfrastructure.org/t/about-the-mghpcc-category/1147/1"
+    },
+    {
+        "username": "jma",
+        "content": "<p>(Replace this first paragraph with a brief description of your new category. This guidance will appear in the category selection area, so try to keep it below 200 characters.)</p>\n<p>Use the following paragraphs for a longer description, or to establish category guidelines or rules:</p>\n<ul>\n<li>\n<p>Why should people use this category? What is it for?</p>\n</li>\n<li>\n<p>How exactly is this different than the other categories we already have?</p>\n</li>\n<li>\n<p>What should topics in this category generally contain?</p>\n</li>\n<li>\n<p>Do we need this category? Can we merge with another category, or subcategory?</p>\n</li>\n</ul>",
+        "url": "https://ask.cyberinfrastructure.org/t/about-the-northeast-cyberteam-category/1148/1"
+    }
+]

@@ -133,4 +133,5 @@ print("Content: %s" % winner['content'])
 # Save contenders to file
 now = datetime.now()
 datestr = "%s-%s-%s" %(now.year, now.month, now.day)
-write_json(contenders, "contenders-%s-%s-%s.json")
+output_file = os.path.join('contests', "contenders-%s.json" % datestr)
+write_json(contenders, output_file)
