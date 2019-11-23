@@ -26,7 +26,11 @@ in case you need to re-roll.
 
 ## Contest History
 
- - [SC 2019](https://ask.cyberinfrastructure.org/t/calling-all-people-who-like-pizza-and-supercomputing/1134) was run between 2019-11-18 and 2019-11-22 on the 23rd of the month, corresponding with the result file [contenders](contests/contenders-2019-11-23.json). The winner is not yet chosen!
+ - [SC 2019](https://ask.cyberinfrastructure.org/t/calling-all-people-who-like-pizza-and-supercomputing/1134) was run between 2019-11-18 and 2019-11-22 on the 23rd of the month, corresponding with the result file [contenders](contests/contenders-2019-11-23.json).
+
+
+See [winners](winners.md)
+
 
 ## How does it work?
 
