@@ -1,8 +1,8 @@
-# AskCI Pizza Raffle!
+# AskCI Pizza Drawing!
 
 ![pizza.png](pizza.png)
 
-This script will help to select a raffle winner by using the Discourse API
+This script will help to select a drawing winner by using the Discourse API
 to randomly select a post between two dates. You'll first need to export
 an API key, discourse site, and username.
 
@@ -14,17 +14,17 @@ export DISCOURSE_BASE="https://ask.cyberinfrastructure.org"
 
 You actually don't need to export the third if you are using AskCI (the default shown
 is already set in the script if the environment variable is not defined).
-Then you can run the raffle!
+Then you can run the drawing!
 
 ```bash
-./raffle.py 2019-11-18 2019-11-22
+./drawing.py 2019-11-18 2019-11-22
 ```
 
 The command above will select a winner between the 18th and 22nd of November,
 print the winner to the screen, and also save the complete data to `contenders-<date>.json`
 in case you need to re-roll.
 
-## Raffle History
+## Contest History
 
  - [SC 2019](https://ask.cyberinfrastructure.org/t/calling-all-people-who-like-pizza-and-supercomputing/1134) was run between 2019-11-18 and 2019-11-22 on the 23rd of the month, corresponding with the result file [contenders](contests/contenders-2019-11-23.json). The winner is not yet chosen!
 
