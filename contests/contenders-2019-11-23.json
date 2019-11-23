@@ -1,5 +1,25 @@
 [
     {
+        "username": "Mike_Henry",
+        "content": "<p>How can I access a jupyter notebook that I start on an interactive job? Sometimes I want to prototype some analysis using a notebook before I translate it into a python script, but I need HPC resources (like a fancy GPU for example) to do the prototyping.</p>",
+        "url": "https://ask.cyberinfrastructure.org/t/how-can-i-run-a-jupyter-notebook-on-a-node/1146/1"
+    },
+    {
+        "username": "guilfoos",
+        "content": "<p>Mike, my advice for something like this is to encourage your site admins to install OpenOnDemand - which has built-in support for running Jupyter notebooks on compute nodes, without having to deal with setting up manual tunnels.</p>\n<p>However, the tunneling method does work. It\u2019s what we used to recommend at our site for connecting to desktops before we created OOD.</p>",
+        "url": "https://ask.cyberinfrastructure.org/t/how-can-i-run-a-jupyter-notebook-on-a-node/1146/3"
+    },
+    {
+        "username": "Mike_Henry",
+        "content": "<p>This can be accomplished with some ssh tunneling. First, start an interactive job asking for the resources you need then load the necessary modules for your code. Then start a notebook like this <code>jupyter notebook --no-browser --port=5556</code>. This will start a notebook without launching a browser and use port <code>5556</code>. Then open another terminal on your local computer and run this command <code>ssh -L 9999:localhost:9999 username@hpc_cluster ssh -L 9999:localhost:5556 -N username@hpc_node</code>. This will open a tunnel from your local computer to the node, mapping the nodes port <code>5556</code> to your <code>9999</code> port. Then on your local computer, open your favorite web browser and got to <code>localhost:9999</code> and you should see your notebook!</p>\n<p>This method isn\u2019t bullet proof since if these ports are in use, it won\u2019t work and you will have to switch to an unused port. This method also won\u2019t work if the cluster won\u2019t let you ssh onto a node directly (I\u2019ve found most places let you as long as you have a job running on the node).</p>",
+        "url": "https://ask.cyberinfrastructure.org/t/how-can-i-run-a-jupyter-notebook-on-a-node/1146/2"
+    },
+    {
+        "username": "paciorek",
+        "content": "<p>Here at Berkeley, we have a visualization node from which one can run a browser and access the notebook (which is running on the compute node) without the user having to set up the tunnel. But I\u2019m not advocating for this compared to Open OnDemand.</p>",
+        "url": "https://ask.cyberinfrastructure.org/t/how-can-i-run-a-jupyter-notebook-on-a-node/1146/4"
+    },
+    {
         "username": "guilfoos",
         "content": "<p>I apologize for linking to external content - we\u2019re evaluating how to best use Ask.CI in our documentation ecosystem - but I thought our HOWTO on using Docker/Singularity at the Ohio Supercomputer Center might be a nice supplement to <a class=\"mention\" href=\"/u/vsoch\">@vsoch</a>\u2019s answer.</p>\n<p><a href=\"https://www.osc.edu/resources/getting_started/howto/howto_use_docker_and_singularity_containers_at_osc\" class=\"onebox\" target=\"_blank\" rel=\"nofollow noopener\">https://www.osc.edu/resources/getting_started/howto/howto_use_docker_and_singularity_containers_at_osc</a></p>",
         "url": "https://ask.cyberinfrastructure.org/t/how-can-i-move-a-docker-container-to-singularity/1125/4"
@@ -10,24 +30,14 @@
         "url": "https://ask.cyberinfrastructure.org/t/how-do-i-get-started-with-python-on-hpc/871/6"
     },
     {
-        "username": "Mike_Henry",
-        "content": "<p>How can I access a jupyter notebook that I start on an interactive job? Sometimes I want to prototype some analysis using a notebook before I translate it into a python script, but I need HPC resources (like a fancy GPU for example) to do the prototyping.</p>",
-        "url": "https://ask.cyberinfrastructure.org/t/how-can-i-run-a-jupyter-notebook-on-a-node/1146/1"
-    },
-    {
-        "username": "Mike_Henry",
-        "content": "<p>This can be accomplished with some ssh tunneling. First, start an interactive job asking for the resources you need then load the necessary modules for your code. Then start a notebook like this <code>jupyter notebook --no-browser --port=5556</code>. This will start a notebook without launching a browser and use port <code>5556</code>. Then open another terminal on your local computer and run this command <code>ssh -L 9999:localhost:9999 username@hpc_cluster ssh -L 9999:localhost:5556 -N username@hpc_node</code>. This will open a tunnel from your local computer to the node, mapping the nodes port <code>5556</code> to your <code>9999</code> port. Then on your local computer, open your favorite web browser and got to <code>localhost:9999</code> and you should see your notebook!</p>\n<p>This method isn\u2019t bullet proof since if these ports are in use, it won\u2019t work and you will have to switch to an unused port. This method also won\u2019t work if the cluster won\u2019t let you ssh onto a node directly (I\u2019ve found most places let you as long as you have a job running on the node).</p>",
-        "url": "https://ask.cyberinfrastructure.org/t/how-can-i-run-a-jupyter-notebook-on-a-node/1146/2"
-    },
-    {
-        "username": "guilfoos",
-        "content": "<p>Mike, my advice for something like this is to encourage your site admins to install OpenOnDemand - which has built-in support for running Jupyter notebooks on compute nodes, without having to deal with setting up manual tunnels.</p>\n<p>However, the tunneling method does work. It\u2019s what we used to recommend at our site for connecting to desktops before we created OOD.</p>",
-        "url": "https://ask.cyberinfrastructure.org/t/how-can-i-run-a-jupyter-notebook-on-a-node/1146/3"
-    },
-    {
         "username": "guilfoos",
         "content": "<p>We\u2019re not using SLURM, but we have used ReFrame to write a set of scheduler tests to basically confirm that our scheduler acts the way we expect. For example, we submit test jobs to every combination of queue and resource type we support, test that jobs that we expect to be unschedulable are rejected, etc.</p>\n<p>We are considering switching to SLURM in 2020, and would likely re-write these tests to test our SLURM configuration.</p>\n<p>We currently run these when we come out of a downtime to confirm that nothing changed unexpectedly.</p>",
         "url": "https://ask.cyberinfrastructure.org/t/stress-testing-on-slurm/1127/5"
+    },
+    {
+        "username": "rachelsingleton",
+        "content": "<p>I\u2019ve been running lots of simulations recently with signac-flow and I\u2019ve now reached a point where I only care about looking at the ones that are doing really well (which I\u2019m determining through some other code run on the cluster). What is the best way to grab the simulations that I want off of the cluster and put them on my local computer without bringing all of them? I\u2019ve used rsync and globus before but it feels very clunky and inefficient like I could be doing something better.</p>",
+        "url": "https://ask.cyberinfrastructure.org/t/what-is-the-best-way-to-pull-simulations-data-off-of-a-cluster/1151/1"
     },
     {
         "username": "shmget",

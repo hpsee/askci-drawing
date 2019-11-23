@@ -27,6 +27,14 @@ with open(json_file, 'r') as filey:
 if not isinstance(contenders, list):
     sys.exit("Malformed data, should be list of contenders.")
 
+# Contenders with admins
+print("Found %s posts!" % len(contenders))
+
+# Remove admins
+admins = ['jma', 'vsoch']
+contenders = [x for x in contenders if x['username'] not in admins]
+print("%s are contenders!" % len(contenders))
+
 # Randomly select a winner!
 winner = choice(contenders)
 print("We have a winner!")
